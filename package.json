@@ -1,0 +1,25 @@
+{
+  "name": "socket.io-scaling",
+  "version": "1.0.0",
+  "description": "sample",
+  "main": "client.js",
+  "dependencies": {
+    "bouncy": "^3.2.2",
+    "cookie": "^0.1.2",
+    "cookie-parser": "^1.3.4",
+    "express": "^4.12.2",
+    "express-session": "^1.10.3",
+    "socket.io": "^1.3.5"
+  },
+  "devDependencies": {
+    "socket.io": "1.3.x",
+    "bouncy": "3.2.2",
+    "cookie": "0.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "adrai",
+  "license": "MIT"
+}
