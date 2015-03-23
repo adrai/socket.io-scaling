@@ -24,7 +24,11 @@ var req = http.request(options, function(res) {
   var socket;
 
   if (cookies) {
-    socket = io('http://localhost:3200', {cookies: cookies});
+    socket = io('http://localhost:3200', {
+      extraHeaders: {
+        'Cookie': cookies
+      }
+    });
   } else {
     socket = io('http://localhost:3200');
   }
