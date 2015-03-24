@@ -2,31 +2,24 @@
  * use this engine.io-client: https://github.com/adrai/engine.io-client
  */
 
-var session = require('express-session'),
-    cookieParser = require('cookie-parser'),
-    app = require('express')();
+var crypto = require('crypto');
 
-app.use(cookieParser('very secret'));
+function generateKey() {
+    var sha = crypto.createHash('sha256');
+    sha.update(Math.random().toString());
+    return sha.digest('hex');
+}
 
-app.use(session({
-  secret: 'very secret',
-  name: 'JSESSIONID',
-  resave: true,
-  saveUninitialized: true
-}));
-
-app.get('/', function (req, res) {
-  req.session.lastAccess = new Date().getTime();
+var app = require('http').createServer(function (req, res) {
+  // To Write a Cookie
+  res.writeHead(204, {
+    'Set-Cookie': 'JSESSIONID=' + generateKey()
+  });
   res.statusCode = '204';
   res.end();
 });
 
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
-
-server.listen(process.env.PORT);
-
+var io = require('socket.io')(app);
 
 io.sockets.use(function (socket, next) {
   console.log(socket.handshake.headers);
@@ -38,5 +31,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('message', function () { });
   socket.on('disconnect', function () { });
 });
+
+app.listen(process.env.PORT);
 
 console.log('started on: ' + process.env.PORT);
