@@ -35,6 +35,20 @@ var req = http.request(options, function(res) {
 
   socket.on('connect', function () {
     console.log('connected');
+
+    socket.on('data', function (data) {
+      console.log(data);
+    });
+
+    var i = 0;
+    setInterval(function () {
+      socket.emit('data', 'message_' + i);
+      i++;
+    }, 1000);
+  });
+
+  socket.on('disconnect', function () {
+    console.log('disconnected');
   });
 
   socket.on('error', function (err) {
