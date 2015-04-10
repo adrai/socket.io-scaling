@@ -28,7 +28,10 @@ io.sockets.use(function (socket, next) {
 
 io.sockets.on('connection', function (socket) {
   console.log('connected');
-  socket.on('message', function () { });
+  socket.on('data', function (input) {
+	console.log(input);
+  	socket.emit('data', 'server confirms ' + input);
+  });
   socket.on('disconnect', function () { });
 });
 
