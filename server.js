@@ -1,7 +1,3 @@
-/**
- * use this engine.io-client: https://github.com/adrai/engine.io-client
- */
-
 var crypto = require('crypto');
 
 function generateKey() {
@@ -22,6 +18,7 @@ var app = require('http').createServer(function (req, res) {
 var io = require('socket.io')(app);
 
 io.sockets.use(function (socket, next) {
+  console.log(process.env.PORT + ': headers: ');
   console.log(socket.handshake.headers);
   next();
 });
@@ -29,12 +26,13 @@ io.sockets.use(function (socket, next) {
 io.sockets.on('connection', function (socket) {
   console.log('connected');
   socket.on('data', function (input) {
-	console.log(input);
-  	socket.emit('data', 'server confirms ' + input);
+    console.log(process.env.PORT);
+    console.log(input)
+  	socket.emit('data', process.env.PORT + ': server confirms');
   });
   socket.on('disconnect', function () { });
 });
 
 app.listen(process.env.PORT);
 
-console.log('started on: ' + process.env.PORT);
+console.log('SERVER started on: ' + process.env.PORT);

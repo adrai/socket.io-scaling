@@ -8,10 +8,11 @@ var ports = [ 3201, 3202, 3203 ];
 bouncy(function (req, bounce) {
 
   var cookies = req.headers.cookie ? cookie.parse(req.headers.cookie) : null;
+  console.log('PROXY cookies, found:');
   console.log(cookies);
 
   if (!cookies || !cookies['JSESSIONID']) {
-    console.log('redirect to: ' + ports[position]);
+    console.log('PROXY - redirects to: ' + ports[position]);
     bounce(ports[position]);
     position = (position + 1) % 3;
     return;
@@ -26,4 +27,4 @@ bouncy(function (req, bounce) {
 
 }).listen(3200);
 
-console.log('started proxy on: 3200');
+console.log('PROXY started on: 3200');
