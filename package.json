@@ -6,12 +6,11 @@
   "dependencies": {
     "bouncy": "^3.2.2",
     "cookie": "^0.1.2",
-    "socket.io": "Automattic/socket.io"
+    "socket.io": "socketio/socket.io"
   },
   "devDependencies": {
   },
   "scripts": {
-    "postinstall": "cd node_modules/socket.io/node_modules/socket.io-client && npm i socketio/engine.io-client#d31a393",
     "start": "node server.js"
   },
   "author": "adrai",
